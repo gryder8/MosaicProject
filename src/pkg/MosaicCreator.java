@@ -1,19 +1,32 @@
 package pkg;
+import javax.swing.*;
 import java.util.Scanner;
 import java.awt.*;
 
 public class MosaicCreator {
     private static Scanner in = new Scanner(System.in);
 
-    public static int getRows(int rowAmount){
-        System.out.println("How many rows would you like?");
-        rowAmount = in.nextInt();
+    public static int getRows(){
+        int rowAmount = 0;
+        while (rowAmount > 200 || rowAmount < 1) {
+            System.out.println("How many rows would you like?");
+            rowAmount = in.nextInt();
+            if (rowAmount > 200 || rowAmount < 1){
+                System.out.println("Invalid input! Try again.");
+            }
+        }
         return rowAmount;
     }
 
-    public static int getCols(int colAmount){
-        System.out.println("How many columns would you like?");
-        colAmount = in.nextInt();
+    public static int getCols(){
+        int colAmount = 0;
+        while (colAmount > 200 || colAmount < 1) {
+            System.out.println("How many columns would you like?");
+            colAmount = in.nextInt();
+            if (colAmount > 200 || colAmount < 1){
+                System.out.println("Invalid input! Try again.");
+            }
+        }
         return colAmount;
     }
 
@@ -31,7 +44,7 @@ public class MosaicCreator {
             } else if (colors.length() < colAmount) {
                 StringBuilder bldr = new StringBuilder();
                 for (int y = colors.length(); y < colAmount; y++) {
-                    bldr.append("z"); //will default in the case statement
+                    bldr.append("z"); //will default to black in the case statement
                 }
                 colors += bldr.toString();
             }
@@ -96,8 +109,8 @@ public class MosaicCreator {
         final int BLOCK_SIZE = 40;
         int cols = 0;
         int rows = 0;
-        rows = getRows(rows);
-        cols = getCols(cols);
+        rows = getRows();
+        cols = getCols();
         Mosaic.open(rows, cols, BLOCK_SIZE, BLOCK_SIZE); //open template
         getColors(rows,cols);
         while (true) {
